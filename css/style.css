@@ -9,3 +9,53 @@
   margin: 0;
   padding: 0;
 }
+
+html,
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: honeydew;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  width: 20vw;
+  height: 60vh;
+  border-radius: 0.4rem;
+  padding: 0.4rem;
+}
+
+.output {
+  display: flex;
+  border: 0.3rem solid honeydew;
+  width: 100%;
+  height: 50%;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  border: 0.3rem solid honeydew;
+  width: 100%;
+  height: 50%;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.column{
+  flex-basis: 100%;
+}
+
+button{
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
