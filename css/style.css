@@ -31,9 +31,13 @@ body {
 
 .output {
   display: flex;
+  align-items: end;
+  justify-content: end;
   border: 0.3rem solid honeydew;
   width: 100%;
   height: 50%;
+  color: white;
+  font-size: 2rem;
 }
 
 .input {
@@ -54,8 +58,14 @@ body {
   flex-basis: 100%;
 }
 
+#equals{
+  flex-basis: 200%;
+}
+
 button{
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
+  font-weight: 700;
+  font-size: 1.8rem;
 }
