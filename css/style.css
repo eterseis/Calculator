@@ -81,7 +81,7 @@ button{
 
 .column:active{
   transition: all 0.01s linear;
-  background-color: var(--clr-dark-green);
+  opacity: 0.9;
 }
 
 .operator, #changeSign{
