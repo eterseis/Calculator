@@ -1,6 +1,7 @@
 let a = [];
 let b = [];
 let operator = null;
+const _operators = document.querySelectorAll(".operator");
 
 const output = document.querySelector(".output");
 
@@ -9,17 +10,21 @@ input.addEventListener("click", (e) => {
   if (!(e.target.classList[0] == "column")) return;
   if (e.target.id === "clearAll" && a.length > 0) {
     operator = clearAll(a, b, output);
+    activeOperator(e.target, _operators);
   }
   if (e.target.id === "changeSign" && a.length > 0) {
     changeSign(a, b, operator, output);
   }
 
-  if (e.target.classList.length > 1 && a.length > 0) {
+  if (e.target.classList.contains("operator") && a.length > 0) {
     operator = e.target.textContent;
+    activeOperator(e.target, _operators);
   }
+
   if (!isValid(e.target.id, a, b)) {
     getNumbers(e.target, output, operator, a, b);
   } else {
+    activeOperator(e.target, _operators);
     a = String(calculate(a, b, getCallback(operator))).split("");
     b.length = 0;
     operator = null;
@@ -29,6 +34,8 @@ input.addEventListener("click", (e) => {
 
 function getNumbers(target, output, operator, a = [], b = []) {
   //------------------Validate-----------------//
+  if (target.textContent === "0" && a.length === 0 && operator === null) return;
+  if (target.textContent === "0" && b.length === 0 && operator != null) return;
   if (!(Number("0" + target.textContent) >= 0)) return;
   if (target.textContent === "." && a.includes(".") && operator === null)
     return;
@@ -89,7 +96,11 @@ function clearAll(a = [], b = [], output) {
 }
 
 function changeSign(a = [], b = [], operator, output) {
-  if (a[0] === "0" || b[0] === "0") return;
+  if (operator !== null) {
+    if (!(b.find((v) => v !== "0" && v !== ".") !== undefined)) return;
+  }
+
+  if (!(a.find((v) => v !== "0" && v !== ".") !== undefined)) return;
   if (operator === null) {
     if (a[0] === "-") {
       a.shift();
@@ -110,16 +121,33 @@ function changeSign(a = [], b = [], operator, output) {
 }
 
 function isValid(btn, a = [], b = []) {
-  if (btn === "equals"){
-    if (a.length > 0 && b.length > 0){
+  if (btn === "equals") {
+    if (a.length > 0 && b.length > 0) {
       return true;
     }
   }
 
-  if (btn === "percentage"){
+  if (btn === "percentage") {
     if (a.length > 0) return true;
   }
   return false;
+}
+
+function activeOperator(target, _array) {
+  if (!target.classList.contains("operator") || target.id === "percentage") {
+    _array.forEach((e) => {
+      if (e.classList.contains("active")) {
+        e.classList.remove("active");
+      }
+    });
+    return;
+  }
+  target.classList.add("active");
+  _array.forEach((e) => {
+    if (e.classList.contains("active") && e.id != target.id) {
+      e.classList.remove("active");
+    }
+  });
 }
 
 function add(a, b) {
